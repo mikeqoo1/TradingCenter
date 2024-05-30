@@ -12,8 +12,11 @@ func main() {
 	orderChannel := make(chan trade_core.Order)
 	reportChannel := make(chan string)
 
+	// Create matchmaking instance
+	matchmaking := trade_core.NewMatchmaking()
+
 	// Start order matching process
-	go trade_core.MatchOrders(orderChannel, reportChannel)
+	go matchmaking.MatchOrders(orderChannel, reportChannel)
 
 	// Create and start the server
 	serverAddr := "localhost:8080"

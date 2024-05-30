@@ -30,9 +30,6 @@ func (s *Server) Start(orderChannel chan trade_core.Order, reportChannel chan st
 	defer listener.Close()
 	fmt.Printf("Server listening on %s\n", s.Address)
 
-	// Start order matching process
-	go trade_core.MatchOrders(orderChannel, reportChannel)
-
 	// Accept incoming connections
 	for {
 		conn, err := listener.Accept()
