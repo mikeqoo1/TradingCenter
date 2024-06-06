@@ -43,7 +43,8 @@ func (m *Matchmaking) MatchOrders(input chan Order, output chan string) {
 					}
 
 					// Handle matched orders (this is a placeholder, you may need more sophisticated logic)
-					report := fmt.Sprintf("Matched: %+v with %+v, Quantity: %d\n", buyOrder, sellOrder, quantity)
+					// report := fmt.Sprintf("Matched: %+v with %+v, Quantity: %d\n", buyOrder, sellOrder, quantity)
+					report := "撮合成功"
 					fmt.Println(report)
 					output <- report
 
