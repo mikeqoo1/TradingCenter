@@ -1,6 +1,7 @@
 package trade_core
 
 import (
+	"TradingCenter/lib"
 	"fmt"
 )
 
@@ -9,6 +10,7 @@ type Order struct {
 	Type     string // "buy" or "sell"
 	Price    float64
 	Quantity int
+	Allmsg   lib.EmMessage
 }
 
 type Matchmaking struct {

@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// Message 結構化我爬完的電文
-type Message struct {
+// EmMessage 興櫃的格式
+type EmMessage struct {
 	FixVersion  string // Tag:8
 	MsgLength   int    // Tag:9
 	MsgType     string // Tag:35
@@ -37,11 +37,11 @@ type Message struct {
 }
 
 // ParseMessage 解析電文並且返回電文結構
-func ParseMessage(msg string) (*Message, error) {
+func ParseEmMessage(msg string) (*EmMessage, error) {
 	fmt.Println("ParseMessage=[", msg, "]")
 	parts := strings.Split(msg, "\x01")
 	fmt.Println("parts=[", parts, "]")
-	message := &Message{}
+	message := &EmMessage{}
 
 	for _, part := range parts {
 		tagValue := strings.Split(part, "=")
@@ -120,4 +120,12 @@ func ParseMessage(msg string) (*Message, error) {
 	}
 
 	return message, nil
+}
+
+// CreatEmOrderReport 興櫃交易所委託回報
+func CreatEmOrderReport(msg *EmMessage) string {
+	delimiter := "\x01"
+	//report := "8=FIX.4.3^A9=296^A35=UO20^A49=emgMsgSvr^A56=845T3131^A34=1205^A52=20240506-07:30:20^A80001=03^A80002=03^A80003=20^A80014=2BK00001^A80024=153021^A80004=0000^A11=00001^A81010=153021931^A81060=0000001^A81061=00000.0000^A81062=00001000^A81063=0000001^A81064=00098.0000^A81065=00001000^A76=8450^A117=00001^A1=9826947^A55=1269  ^A81001=1^A54=1^A10=202^A"
+	report := "8=" + msg.FixVersion + delimiter + "35=UO20" + delimiter
+	return report
 }
